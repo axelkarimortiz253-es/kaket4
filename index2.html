@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Periódico Mural - 20 de Noviembre</title>
+
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Estilos CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, serif;
+            background: #f3e4c7;
+            color: #332719;
+            padding: 20px;
+        }
+
+        .periodico {
+            max-width: 1100px;
+            margin: auto;
+            background: #fffaf0;
+            border: 8px double #8b2922;
+            padding: 25px;
+            box-shadow: 0 5px 20px #0003;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 5px solid #17613b;
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 42px;
+            color: #9b2525;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .fecha {
+            background: #17613b;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .principal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .noticia {
+            background: #f5ead5;
+            padding: 18px;
+            border-left: 6px solid #9b2525;
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #17613b;
+            margin-bottom: 12px;
+        }
+
+        .noticia p {
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .imagen-principal {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+
+        .personajes {
+            margin-top: 25px;
+        }
+
+        .personajes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .personaje {
+            background: #e8dcc3;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .personaje img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .curiosidades {
+            margin-top: 25px;
+            background: #17613b;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .curiosidades h2 {
+            color: #fff1c5;
+        }
+
+        .curiosidades li {
+            margin: 10px 0 10px 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px;
+            border-top: 3px solid #9b2525;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .principal {
+                grid-template-columns: 1fr;
+            }
+
+            .personajes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 30px;
+            }
+
+            .periodico {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="app">
+
+    <div class="periodico">
+
+        <!-- ENCABEZADO -->
+        <header>
+            <h1>{{ titulo }}</h1>
+            <p>{{ subtitulo }}</p>
+        </header>
+
+        <div class="fecha">
+            {{ fecha }}
+        </div>
+
+        <!-- NOTICIA PRINCIPAL -->
+        <div class="principal">
+
+            <section class="noticia">
+                <h2>¡Comienza la Revolución Mexicana!</h2>
+
+                <p>
+                    El 20 de noviembre de 1910 comenzó la Revolución
+                    Mexicana, un movimiento armado que buscaba
+                    terminar con la dictadura de Porfirio Díaz
+                    y luchar por la justicia, la libertad y mejores
+                    condiciones de vida para los mexicanos.
+                </p>
+
+                <img
+                    :src="imagenRevolucion"
+                    alt="Revolución Mexicana"
+                    class="imagen-principal"
+                >
+            </section>
+
+            <section class="noticia">
+                <h2>¿Por qué inició?</h2>
+
+                <p>
+                    Durante el gobierno de Porfirio Díaz existían
+                    grandes desigualdades sociales. Muchas personas
+                    trabajaban en condiciones difíciles y los
+                    campesinos tenían poco acceso a las tierras.
+                </p>
+
+                <p>
+                    Francisco I. Madero convocó al pueblo a levantarse
+                    en armas mediante el Plan de San Luis, que llamó
+                    a iniciar la lucha el 20 de noviembre de 1910.
+                </p>
+
+                <img
+                    :src="imagenMadero"
+                    alt="Francisco I. Madero"
+                    class="imagen-principal"
+                >
+            </section>
+
+        </div>
+
+        <!-- PERSONAJES IMPORTANTES -->
+        <section class="personajes">
+
+            <h2>Personajes importantes de la Revolución</h2>
+
+            <div class="personajes-grid">
+
+                <div
+                    class="personaje"
+                    v-for="persona in personajes"
+                    :key="persona.nombre"
+                >
+                    <img :src="persona.imagen" :alt="persona.nombre">
+
+                    <h3>{{ persona.nombre }}</h3>
+
+                    <p>{{ persona.descripcion }}</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CURIOSIDADES -->
+        <section class="curiosidades">
+
+            <h2>¿Sabías que...?</h2>
+
+            <ul>
+                <li v-for="dato in curiosidades" :key="dato">
+                    {{ dato }}
+                </li>
+            </ul>
+
+        </section>
+
+        <!-- IMPORTANCIA -->
+        <section class="noticia" style="margin-top: 25px;">
+
+            <h2>¿Por qué recordamos el 20 de noviembre?</h2>
+
+            <p>
+                Recordamos esta fecha porque representa la lucha
+                del pueblo mexicano por sus derechos, la democracia,
+                la igualdad y la justicia social. La Revolución
+                Mexicana transformó la historia de nuestro país
+                y contribuyó a importantes cambios políticos y sociales.
+            </p>
+
+        </section>
+
+        <!-- PIE DE PÁGINA -->
+        <footer>
+            <p>🇲🇽 {{ mensajeFinal }} 🇲🇽</p>
+            <p>Periódico mural escolar | 20 de noviembre</p>
+        </footer>
+
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+<script src="main2.js"></script>
+
+</body>
+</html>

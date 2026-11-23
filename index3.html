@@ -1,0 +1,398 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Outcome Memories - Tarven Shop</title>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background:
+        linear-gradient(rgba(10,8,6,.88), rgba(10,8,6,.96)),
+        repeating-linear-gradient(
+            90deg,
+            #30251b 0px,
+            #30251b 3px,
+            #211910 4px,
+            #211910 8px
+        );
+    color: #e4d3b5;
+    font-family: Georgia, serif;
+}
+
+/* ENCABEZADO */
+
+header {
+    background: #21180f;
+    border-bottom: 4px solid #80613c;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 20px #000;
+}
+
+header h1 {
+    color: #d7b77e;
+    font-size: 36px;
+    letter-spacing: 5px;
+    text-shadow: 3px 3px #000;
+}
+
+header p {
+    color: #a48b67;
+    margin-top: 10px;
+    letter-spacing: 4px;
+    font-size: 12px;
+}
+
+/* CONTENEDOR */
+
+main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 15px;
+}
+
+.shop-title {
+    text-align: center;
+    color: #d2b17b;
+    font-size: 25px;
+    margin-bottom: 30px;
+    letter-spacing: 3px;
+}
+
+/* PERSONAJES */
+
+.character {
+    background: linear-gradient(145deg, #302319, #19120d);
+    border: 2px solid #765635;
+    padding: 25px;
+    margin-bottom: 35px;
+    box-shadow: 0 8px 20px #000;
+    position: relative;
+}
+
+.character::before {
+    content: "";
+    display: block;
+    height: 4px;
+    background: #a17a48;
+    margin: -25px -25px 25px;
+}
+
+.fleetway {
+    border-color: #9c842c;
+}
+
+.fleetway::before {
+    background: #d3b72c;
+}
+
+.kolossos {
+    border-color: #873b30;
+}
+
+.kolossos::before {
+    background: #a33b2d;
+}
+
+/* ICONOS Y NOMBRES */
+
+.character-header {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-bottom: 20px;
+}
+
+.shop-icon {
+    width: 115px;
+    height: 115px;
+    object-fit: cover;
+    border: 3px solid #a17a48;
+    background: #100c08;
+    box-shadow: 0 0 15px #000;
+    transition: .3s;
+}
+
+.shop-icon:hover {
+    transform: scale(1.08);
+}
+
+.fleetway .shop-icon {
+    border-color: #d3b72c;
+    box-shadow: 0 0 12px rgba(211,183,44,.25);
+}
+
+.kolossos .shop-icon {
+    border-color: #a33b2d;
+    box-shadow: 0 0 12px rgba(163,59,45,.25);
+}
+
+.character h2 {
+    font-size: 32px;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px #000;
+}
+
+.fleetway h2 {
+    color: #e7ca39;
+}
+
+.kolossos h2 {
+    color: #bd5545;
+}
+
+.subtitle {
+    color: #a99170;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+/* SECCIONES */
+
+.character h3 {
+    color: #d6b57e;
+    font-size: 19px;
+    margin: 25px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #725337;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* TARJETAS */
+
+.info {
+    background: rgba(12, 9, 6, .65);
+    border: 1px solid #59432d;
+    border-left: 4px solid #b18a55;
+    padding: 16px;
+    margin: 12px 0;
+    transition: .2s;
+}
+
+.info:hover {
+    background: #392a1c;
+    border-color: #c09a62;
+    transform: translateX(4px);
+}
+
+.fleetway .info {
+    border-left-color: #d3b72c;
+}
+
+.kolossos .info {
+    border-left-color: #a33b2d;
+}
+
+.info h4 {
+    color: #e2c18b;
+    font-size: 17px;
+    margin-bottom: 9px;
+}
+
+.info p {
+    color: #c0ad91;
+    line-height: 1.6;
+}
+
+.damage {
+    color: #d18b57 !important;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+/* ETIQUETAS */
+
+.tag {
+    display: inline-block;
+    background: #493522;
+    color: #e0c28f;
+    border: 1px solid #80613c;
+    padding: 5px 10px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+/* PIE DE PAGINA */
+
+footer {
+    background: #21180f;
+    border-top: 3px solid #80613c;
+    padding: 25px;
+    text-align: center;
+    color: #947b59;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:600px) {
+    header h1 {
+        font-size: 24px;
+    }
+
+    .character h2 {
+        font-size: 21px;
+    }
+
+    .character-header {
+        gap: 12px;
+    }
+
+    .shop-icon {
+        width: 85px;
+        height: 85px;
+    }
+
+    main {
+        padding: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+<header>
+    <h1>OUTCOME MEMORIES</h1>
+    <p>THE TARVEN ARCHIVES</p>
+</header>
+
+<main>
+
+    <div class="shop-title">
+        ✦ EXECUTIONER RECORDS ✦
+    </div>
+
+    <!-- FLEETWAY -->
+
+    <section class="character fleetway">
+
+        <div class="character-header">
+
+            <img
+                class="shop-icon"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWvh49L8ev3DzeOL6_cIAdZkpFQBsPixxF5TWAyLDjpQ&s=10"
+                alt="Fleetway Super Sonic Shop Icon"
+            >
+
+            <div>
+                <h2>⚡ FLEETWAY SUPER SONIC</h2>
+                <p class="subtitle">The Maniac</p>
+                <span class="tag">EXECUTIONER</span>
+            </div>
+
+        </div>
+
+        <h3>⚔ M1 Damage</h3>
+
+        <div class="info">
+            <h4>Basic Attack</h4>
+            <p>Normal damage: <strong>30 HP</strong></p>
+            <p>Critical damage: <strong>37 HP</strong></p>
+        </div>
+
+        <h3>✦ Passives</h3>
+
+        <div class="info"
+             v-for="passive in fleetwayPassives"
+             :key="passive.name">
+
+            <h4>{{ passive.name }}</h4>
+            <p>{{ passive.description }}</p>
+
+        </div>
+
+        <h3>✦ Abilities</h3>
+
+        <div class="info"
+             v-for="ability in fleetwayAbilities"
+             :key="ability.name">
+
+            <h4>{{ ability.name }}</h4>
+            <p>{{ ability.description }}</p>
+            <p class="damage">{{ ability.damage }}</p>
+
+        </div>
+
+    </section>
+
+    <!-- KOLOSSOS -->
+
+    <section class="character kolossos">
+
+        <div class="character-header">
+
+            <img
+                class="shop-icon"
+                src="https://i.redd.it/949e7siqly0h1.jpg"
+                alt="Kolossos Shop Icon"
+            >
+
+            <div>
+                <h2>🩸 KOLOSSOS</h2>
+                <p class="subtitle">The Brute</p>
+                <span class="tag">EXECUTIONER</span>
+            </div>
+
+        </div>
+
+        <h3>⚔ M1 Damage</h3>
+
+        <div class="info">
+            <h4>Basic Attack</h4>
+            <p>Damage: <strong>55 HP</strong></p>
+        </div>
+
+        <h3>✦ Passives</h3>
+
+        <div class="info"
+             v-for="passive in kolossosPassives"
+             :key="passive.name">
+
+            <h4>{{ passive.name }}</h4>
+            <p>{{ passive.description }}</p>
+
+        </div>
+
+        <h3>✦ Abilities</h3>
+
+        <div class="info"
+             v-for="ability in kolossosAbilities"
+             :key="ability.name">
+
+            <h4>{{ ability.name }}</h4>
+            <p>{{ ability.description }}</p>
+            <p class="damage">{{ ability.damage }}</p>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    OUTCOME MEMORIES | TARVEN ARCHIVES
+</footer>
+
+</div>
+
+<script src="main3.js"></script>
+
+</body>
+</html>
